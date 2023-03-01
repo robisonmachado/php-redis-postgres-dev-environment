@@ -8,7 +8,7 @@ RUN a2enmod rewrite
 RUN apt update -y && apt install -y libicu-dev \
     unzip zip apt-transport-https libpq-dev \
     zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev \
-    libjpeg62-turbo-dev
+    libjpeg62-turbo-dev nano
 
 #composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -19,3 +19,5 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
+
+USER www-data
